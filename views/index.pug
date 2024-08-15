@@ -1,0 +1,25 @@
+extends layout
+
+block content
+  h1= title
+  form(action='/api/weather-news' method='get' id='search-form')
+    input(type='text' name='city' placeholder='Enter city name')
+    button(type='submit') Get Weather and News
+
+  if weather
+    h2 Weather
+    div
+      p City: #{weather.city}
+      p Temperature: #{weather.temperature}°C
+      p Condition: #{weather.condition}
+      p Wind Speed: #{weather.windSpeed} m/s
+
+  if news
+    h2 News
+    div#news-list
+      each article in news
+        div.article
+          h3: a(href=article.url target="_blank")= article.title
+          p= article.description
+          if article.image
+            img(src=article.image width="200")
